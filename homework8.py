@@ -7,7 +7,6 @@ student_name = "Jingjing Bai"
 ############################################################
 # Imports
 ############################################################
-
 import re
 import random
 import math
@@ -20,9 +19,12 @@ import math
 def tokenize(text):
     return re.findall(r"[\w]+|[^\s\w]", text)
 
+
 def ngrams(n, tokens):
     padded_tokens = ["<START>"]*(n-1) + tokens + ["<END>"]
-    return [(tuple(padded_tokens[i-n+1:i]), token) for i, token in enumerate(padded_tokens) if i >= n-1] 
+    return [(tuple(padded_tokens[i-n+1:i]), token)
+        for i, token in enumerate(padded_tokens) if i >= n-1] 
+
 
 class NgramModel(object):
 
@@ -51,17 +53,16 @@ class NgramModel(object):
                 self.context_dic[context] = {token: 1}
         return
 
-
     def prob(self, context, token):
         if context in self.context_dic:
             token_dic = self.context_dic[context]
             if token in token_dic:
-                return float(token_dic[token]) / self.context_count_dic[context]
+                return float(token_dic[token])\
+                    / self.context_count_dic[context]
             else:
                 return 0.0
         else:
             return 0.0
-
 
     def random_token(self, context):
         r = random.random()
@@ -73,7 +74,8 @@ class NgramModel(object):
 
             for i, token in enumerate(sorted_keys):
                 minus_i_sum = sum([token_dic[k] for k in sorted_keys[:i]])
-                if float(minus_i_sum)/denominator <= r < float(minus_i_sum + token_dic[sorted_keys[i]])/denominator:
+                if float(minus_i_sum)/denominator <= \
+                    r < float(minus_i_sum + token_dic[sorted_keys[i]])/denominator:
                     return token
 
         else:
@@ -96,7 +98,8 @@ class NgramModel(object):
 
             return " ".join(generated)
         else:
-            return " ".join([self.random_token(()) for __ in range(token_count)])
+            return " ".join([self.random_token(())
+                for __ in range(token_count)])
 
     def perplexity(self, sentence):
         product = 0
