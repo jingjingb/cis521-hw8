@@ -10,8 +10,6 @@ student_name = "Jingjing Bai"
 import re
 import random
 import math
-
-
 ############################################################
 # Section 1: Markov Models
 ############################################################
@@ -23,7 +21,7 @@ def tokenize(text):
 def ngrams(n, tokens):
     padded_tokens = ["<START>"]*(n-1) + tokens + ["<END>"]
     return [(tuple(padded_tokens[i-n+1:i]), token)
-        for i, token in enumerate(padded_tokens) if i >= n-1] 
+        for i, token in enumerate(padded_tokens) if i >= n-1]
 
 
 class NgramModel(object):
@@ -75,7 +73,8 @@ class NgramModel(object):
             for i, token in enumerate(sorted_keys):
                 minus_i_sum = sum([token_dic[k] for k in sorted_keys[:i]])
                 if float(minus_i_sum)/denominator <= \
-                    r < float(minus_i_sum + token_dic[sorted_keys[i]])/denominator:
+                   r < float(minus_i_sum +\
+                   token_dic[sorted_keys[i]])/denominator:
                     return token
 
         else:
@@ -99,7 +98,7 @@ class NgramModel(object):
             return " ".join(generated)
         else:
             return " ".join([self.random_token(())
-                for __ in range(token_count)])
+            for __ in range(token_count)])
 
     def perplexity(self, sentence):
         product = 0
