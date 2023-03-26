@@ -103,8 +103,9 @@ class NgramModel(object):
 
             return " ".join(generated)
         else:
-            return " ".join([self.random_token(())
-            for __ in range(token_count)])
+            return " ".join(
+                [self.random_token(())
+                 for __ in range(token_count)])
 
     def perplexity(self, sentence):
         product = 0
