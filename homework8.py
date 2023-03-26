@@ -6,12 +6,6 @@ import math
 student_name = "Jingjing Bai"
 
 ############################################################
-# Imports
-############################################################
-import re
-import random
-import math
-############################################################
 # Section 1: Markov Models
 ############################################################
 
@@ -74,7 +68,7 @@ class NgramModel(object):
 
             for i, token in enumerate(sorted_keys):
                 minus_i_sum = sum([token_dic[k] for k in sorted_keys[:i]])
-                if float(minus_i_sum)/denominator <=
+                if float(minus_i_sum)/denominator <=\
                    r < float(minus_i_sum +\
                    token_dic[sorted_keys[i]])/denominator:
                     return token
